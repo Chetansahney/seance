@@ -3,17 +3,29 @@
   "version": "0.1.0",
   "description": "Talk to the dead web: find dead links and resurrect them from the Wayback Machine.",
   "type": "module",
-  "bin": { "seance": "bin/seance.js" },
+  "bin": {
+    "seance": "bin/seance.js"
+  },
   "main": "src/scan.js",
   "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
-    "test": "node --test \"test/**/*.test.js\""
+    "test": "node --test \"test/**/*.test.js\"",
+    "test:a11y": "npx playwright test scripts/a11y-audit.spec.js --project=msedge"
   },
-  "engines": { "node": ">=20" },
-  "keywords": ["link-rot", "wayback-machine", "dead-links", "kiroween"],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "link-rot",
+    "wayback-machine",
+    "dead-links",
+    "kiroween"
+  ],
   "license": "MIT",
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.1",
+    "@playwright/test": "^1.65.1",
     "fast-check": "^3.23.0"
   }
 }

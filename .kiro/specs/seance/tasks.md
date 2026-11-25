@@ -18,4 +18,4 @@
 - [x] 13. Shareable "death certificate" permalink (encode the summary in the URL hash)
 - [x] 14. Respect `robots.txt` and add a per-host backoff on 429
 - [ ] 15. Deploy (Render or Fly) and add the live URL to the README
-- [ ] 16. Accessibility audit with axe; fix every issue it finds
+- [x] 16. Accessibility audit with axe; fix every issue it finds

@@ -45,6 +45,22 @@ node bin/seance.js README.md --json   # machine-readable report
 node bin/seance.js README.md --quiet  # only show dead links
 ```
 
+### GitHub Action
+
+Fail a pull request when a link dies:
+
+```yaml
+- uses: actions/checkout@v4
+- uses: Chetansahney/seance@main
+  with:
+    files: README.md docs/guide.md   # space-separated (default: README.md)
+    fix: false                       # true rewrites dead links instead of failing
+```
+
+### Accessibility audit
+
+`npm run test:a11y` runs axe against the home page and a finished scan in Microsoft Edge (dev dependencies only).
+
 ### API
 
 `POST /api/scan` with `{ "text": "..." }` or `{ "url": "https://..." }` returns a
