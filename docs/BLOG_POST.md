@@ -63,7 +63,7 @@ rewrite idempotence, snapshot validityâ€¦) and each one is a fast-check test. âœ
 
 ## Try it
 
-- Live: [URL]
+- Live: https://seance-sqcf.onrender.com
 - Code (MIT): https://github.com/Chetansahney/seance
 - In CI: `node bin/seance.js README.md` exits with code 1 when a link dies; `--fix` rewrites it.
 

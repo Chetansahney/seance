@@ -31,7 +31,7 @@ It comes as a web app and a CLI (`seance README.md --fix`), so it can run in CI.
 | 4 | **Public GitHub repo** (not GitLab/Bitbucket) with all source, assets and instructions | ⏳ |
 | 5 | An **OSI license** that GitHub detects and shows in the About section (MIT: `LICENSE`) | ✅ File added |
 | 6 | `/.kiro` directory **at the repo root** (specs, hooks, steering), **not** gitignored | ✅ Scaffolded |
-| 7 | **URL to the working app** (deployed), with test credentials in the Devpost form if needed (none needed) | ⏳ Deploy |
+| 7 | **URL to the working app** (deployed), with test credentials in the Devpost form if needed (none needed) | ✅ https://seance-sqcf.onrender.com |
 | 8 | **Text description** of features and functionality | ⏳ Draft in `docs/DEVPOST.md` |
 | 9 | **Demo video** under 3 min, public on YouTube, showing it working, no copyrighted music | ⏳ Script in `docs/VIDEO_SCRIPT.md` |
 | 10 | **Kiro write-up**: IDE/CLI, custom agents, hooks, specs, steering, MCP, PBT, powers | ⏳ Draft in `docs/KIRO_USAGE.md` |

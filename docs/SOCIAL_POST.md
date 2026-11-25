@@ -19,7 +19,7 @@ My favorite thing about Kiro: [one specific feature, for example spec-driven dev
 How it changed my approach: [for example, "I now write acceptance criteria before code, because …"].
 
 Code (MIT): https://github.com/Chetansahney/seance
-Live demo: [URL]
+Live demo: https://seance-sqcf.onrender.com
 
 #Kiro #LinkRot #InternetArchive
 

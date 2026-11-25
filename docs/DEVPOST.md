@@ -3,6 +3,8 @@
 **Title:** Séance: talk to the dead web
 **Tagline:** Find the dead links in anything you've written and raise them from the Internet Archive.
 **Category:** Resurrection
+**Try it:** https://seance-sqcf.onrender.com (no login needed; click "Try a haunted README")
+**Code:** https://github.com/Chetansahney/seance
 
 ## Inspiration
 Links are the web's memory, and they're dying. Domains lapse, companies shut down, and docs get
