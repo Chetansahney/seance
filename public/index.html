@@ -95,7 +95,7 @@
         <li><strong>Check the pulse.</strong> Each link is knocked on politely (HEAD, then GET), at most two at a time per site.</li>
         <li><strong>Bury the dead.</strong> 404s, 410s, vanished domains, timeouts and failing servers go in the ground. Locked doors (403, 429) stay in the fog: we never call a link dead without proof.</li>
         <li><strong>Resurrect.</strong> For each dead link, Séance asks the Wayback Machine for its last <em>healthy</em> snapshot, never an archived copy of the 404 page.</li>
-        <li><strong>Exorcise.</strong> Download your document with dead links rewritten. Or run <code>npx seance README.md --fix</code> in CI.</li>
+        <li><strong>Exorcise.</strong> Download your document with dead links rewritten. Or run <code>node bin/seance.js README.md --fix</code>, or add the Séance GitHub Action to fail pull requests that add dead links.</li>
       </ol>
     </section>
   </main>

@@ -5,6 +5,7 @@
 **Category:** Resurrection
 **Try it:** https://seance-sqcf.onrender.com (no login needed; click "Try a haunted README")
 **Code:** https://github.com/Chetansahney/seance
+**Video:** https://youtu.be/3w3kBzwGrLQ
 
 ## Inspiration
 Links are the web's memory, and they're dying. Domains lapse, companies shut down, and docs get
@@ -21,7 +22,7 @@ Paste a document or give Séance a URL. It:
 - asks the Wayback Machine for each dead link's **last healthy snapshot**, never the archived copy of its 404 page,
 - gives you the document back with dead links rewritten and nothing else changed.
 
-A CLI (`seance README.md --fix`) brings the same thing to CI, failing the build when a link dies.
+A CLI (`node bin/seance.js README.md --fix`) and a GitHub Action bring the same thing to CI, failing the build when a link dies.
 
 ## How we built it
 Séance is specified in a Kiro spec: EARS requirements, a design with seven correctness properties, and a task list. The later tasks (GitHub Action, shareable certificate, robots.txt and backoff, accessibility audit) were run from that task list in the Kiro IDE. Steering docs held the line on zero runtime dependencies, which stopped an unneeded @actions/core install. Agent hooks ran the tests on every core edit, catching a bug where a rate-limited server was hit twice, and audited contrast and reduced motion on every UI edit. Testing against real sites found a robots.txt parsing bug (RFC 9309 group boundaries); the fix and the updated requirements landed together, with a new property-based test to guard it. ✍️ Add your own sessions in Kiro here.

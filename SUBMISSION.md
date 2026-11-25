@@ -19,7 +19,7 @@ Séance takes a URL, a Markdown/HTML document, or pasted text, then:
    picking the snapshot closest to when the link was last alive.
 5. **Exorcises** the document: you download it with every dead link rewritten to its archived copy.
 
-It comes as a web app and a CLI (`seance README.md --fix`), so it can run in CI.
+It comes as a web app and a CLI (`node bin/seance.js README.md --fix`) plus a GitHub Action, so it can run in CI.
 
 ## Requirements (from the official page)
 
@@ -33,7 +33,7 @@ It comes as a web app and a CLI (`seance README.md --fix`), so it can run in CI.
 | 6 | `/.kiro` directory **at the repo root** (specs, hooks, steering), **not** gitignored | ✅ Scaffolded |
 | 7 | **URL to the working app** (deployed), with test credentials in the Devpost form if needed (none needed) | ✅ https://seance-sqcf.onrender.com |
 | 8 | **Text description** of features and functionality | ⏳ Draft in `docs/DEVPOST.md` |
-| 9 | **Demo video** under 3 min, public on YouTube, showing it working, no copyrighted music | ⏳ Script in `docs/VIDEO_SCRIPT.md` |
+| 9 | **Demo video** under 3 min, public on YouTube, showing it working, no copyrighted music | ✅ https://youtu.be/3w3kBzwGrLQ (1:57) |
 | 10 | **Kiro write-up**: IDE/CLI, custom agents, hooks, specs, steering, MCP, PBT, powers | ⏳ Draft in `docs/KIRO_USAGE.md` |
 | 11 | Team of at most 3, registered on Devpost | ⏳ |
 | 12 | Read the [Official Rules](https://kiroween.devpost.com/rules) | ⏳ |

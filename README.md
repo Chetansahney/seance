@@ -13,7 +13,7 @@ and the knowledge behind that link is gone. Séance holds a séance for every li
 4. **Resurrect.** Asks the Wayback Machine for the link's last *healthy* snapshot, never an archived copy of its 404 page.
 5. **Exorcise.** Gives you the document back with every resurrected link rewritten, and nothing else changed.
 
-> **Live demo: [https://seance-sqcf.onrender.com](https://seance-sqcf.onrender.com)** (free hosting: the first visit after a quiet spell takes ~30–60 s to wake up) · Demo video: _add the YouTube link here_
+> **Live demo: [https://seance-sqcf.onrender.com](https://seance-sqcf.onrender.com)** (free hosting: the first visit after a quiet spell takes ~30–60 s to wake up) · **Demo video: [https://youtu.be/3w3kBzwGrLQ](https://youtu.be/3w3kBzwGrLQ)**
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Chetansahney/seance)
 

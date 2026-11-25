@@ -1,0 +1,10 @@
+[
+  {"id": "s1", "text": "Six of the ten links in this old README are dead. Nobody noticed. Links don't fail loudly. They just stop. This is link rot, and it is quietly erasing the web."},
+  {"id": "s2", "text": "This is Séance. It finds the dead links in any document or web page, and brings them back from the Internet Archive's Wayback Machine."},
+  {"id": "s3", "text": "Paste a document, or try the haunted README. Séance knocks on every link politely, and streams the answers in live. Dead links get a tombstone. Then it asks the Wayback Machine for the last time each page was healthy, never the archived 404 page, and the ghost rises."},
+  {"id": "s4", "text": "Some links are beyond reach. And sites that only block bots stay in the fog, because Séance never calls a link dead without proof."},
+  {"id": "s5", "text": "Download your document with every dead link rewritten, and nothing else changed. Or share the certificate with a single link."},
+  {"id": "s6", "text": "The same engine runs on the command line and as a GitHub Action. So the next dead link fails your pull request, instead of failing your readers."},
+  {"id": "s7", "text": "Séance is defined by a Kiro spec: requirements in EARS form, a design with seven correctness properties checked by property based tests, and a task list. The later tasks ran in Kiro's spec workflow. Steering kept the app at zero runtime dependencies, and stopped an unneeded install. Agent hooks ran the tests on every core edit, and caught a bug that hit rate limited servers twice. Another hook audited contrast and reduced motion on every interface change. And an axe audit in Edge reports zero accessibility violations."},
+  {"id": "s8", "text": "Séance. Talk to the dead web. Try it now, and give your old links a second life."}
+]

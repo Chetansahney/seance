@@ -5,3 +5,5 @@ node_modules/
 .claude/
 test-results/
 playwright-report/
+demo/build/
+demo/*.mp4
