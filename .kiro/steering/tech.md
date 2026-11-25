@@ -10,3 +10,7 @@ inclusion: always
 - **Tests:** `npm test` runs `node --test`. Every pure function gets example tests **and** at least one fast-check property.
 - **Errors:** never throw across the HTTP boundary. Return a structured `{ status, reason }`.
 - **Style:** two-space indent, single quotes, JSDoc types on exported functions.
+
+## Working on this machine (Windows)
+- The terminal is **Windows PowerShell 5.1**: `&&` is not supported. Run one command per step, or separate commands with `;`.
+- Create and edit files with the file-writing tool, **not** `Set-Content`/`Out-File`: PowerShell 5.1 adds a UTF-8 BOM and CRLF line endings, which break YAML and shell files. The repo uses LF (see `.gitattributes`).

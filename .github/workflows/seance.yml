@@ -1,0 +1,14 @@
+name: Séance – Check Links
+
+on:
+  pull_request:
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Scan for dead links
+        uses: ./

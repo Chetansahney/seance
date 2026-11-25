@@ -14,7 +14,7 @@
 - [x] 9. Server: static files, SSE `/api/scan`, URL fetch mode
 - [x] 10. Haunted UI: graveyard, ghosts, reduced motion, keyboard support (Req 5)
 - [x] 11. CLI: report, `--fix`, `--json`, exit codes (Req 6)
-- [ ] 12. GitHub Action wrapper (`action.yml`) so repos can run Séance on every PR
+- [x] 12. GitHub Action wrapper (`action.yml`) so repos can run Séance on every PR
 - [ ] 13. Shareable "death certificate" permalink (encode the summary in the URL hash)
 - [ ] 14. Respect `robots.txt` and add a per-host backoff on 429
 - [ ] 15. Deploy (Render or Fly) and add the live URL to the README

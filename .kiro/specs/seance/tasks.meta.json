@@ -1,0 +1,22 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "12. GitHub Action wrapper (`action.yml`) so repos can run Séance on every PR": [
+      {
+        "executionId": "d770c45d-cff9-46ac-bb23-f16bc60cb662",
+        "chatSessionId": "sess_bb35701a-7246-4aa5-b02f-99918de4f86f",
+        "timestamp": 1795602539045
+      },
+      {
+        "executionId": "15d6ac8c-26bb-4b2a-909b-c9c63bccd560",
+        "chatSessionId": "sess_bb35701a-7246-4aa5-b02f-99918de4f86f",
+        "timestamp": 1795602612458
+      },
+      {
+        "executionId": "15d6ac8c-26bb-4b2a-909b-c9c63bccd560",
+        "chatSessionId": "sess_bb35701a-7246-4aa5-b02f-99918de4f86f",
+        "timestamp": 1795602801711
+      }
+    ]
+  }
+}

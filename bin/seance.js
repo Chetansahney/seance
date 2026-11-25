@@ -50,4 +50,6 @@ if (flags.has('--fix') && fixed !== text) {
 }
 
 const dead = summary.resurrected + summary.lost;
-process.exit(dead > 0 && !flags.has('--fix') ? 1 : summary.lost > 0 ? 1 : 0);
+// Set the code instead of calling process.exit(): exiting while sockets are still
+// closing can crash Node on Windows.
+process.exitCode = (dead > 0 && !flags.has("--fix")) || summary.lost > 0 ? 1 : 0;
