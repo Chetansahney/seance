@@ -17,6 +17,18 @@
         "chatSessionId": "sess_bb35701a-7246-4aa5-b02f-99918de4f86f",
         "timestamp": 1795602801711
       }
+    ],
+    "13. Shareable \"death certificate\" permalink (encode the summary in the URL hash)": [
+      {
+        "executionId": "46ce973f-df01-48f6-8e9c-1d6a502a9cd0",
+        "chatSessionId": "sess_ec876a21-7be8-438a-9e89-2bca624fb24e",
+        "timestamp": 1795603011477
+      },
+      {
+        "executionId": "4d515f4e-8acc-4e45-99e4-6ec40d7524e5",
+        "chatSessionId": "sess_ec876a21-7be8-438a-9e89-2bca624fb24e",
+        "timestamp": 1795603246155
+      }
     ]
   }
 }

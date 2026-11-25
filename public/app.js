@@ -4,7 +4,7 @@ const els = {
   form: $('offering'), doc: $('doc'), page: $('page'), begin: $('begin'), sample: $('sample'), error: $('form-error'),
   ritual: $('ritual'), wax: $('wax'), status: $('status'),
   tally: $('tally'), graveyard: $('graveyard'), plots: $('plots'),
-  cert: $('certificate'), certText: $('cert-text'), download: $('download'), copy: $('copy'), again: $('again'),
+  cert: $('certificate'), certText: $('cert-text'), download: $('download'), copy: $('copy'), permalink: $('permalink'), again: $('again'),
   template: $('plot-template'),
 };
 
@@ -231,7 +231,7 @@ els.form.addEventListener('submit', async (e) => {
   }
 });
 
-function showCertificate(s) {
+function showCertificate(s, restored = false) {
   const dead = s.resurrected + s.lost;
   els.status.textContent = `The séance is over. ${s.total} links examined.`;
   els.wax.style.transform = 'scaleX(0.04)';
@@ -245,11 +245,17 @@ function showCertificate(s) {
   }
   if (s.unknown) parts.push(`${s.unknown} remain${s.unknown === 1 ? 's' : ''} in the fog (blocked or rate-limited), so we left ${s.unknown === 1 ? 'it' : 'them'} untouched.`);
   els.certText.textContent = parts.join(' ');
-  const changed = s.resurrected > 0;
+  const changed = s.resurrected > 0 && !restored;
   els.download.hidden = !changed;
   els.copy.hidden = !changed;
   els.cert.hidden = false;
   els.cert.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest' });
+  // Encode the summary into the URL hash so this certificate can be shared.
+  try {
+    const payload = { source: s.source ?? sourceName, total: s.total, alive: s.alive ?? 0, dead: (s.resurrected ?? 0) + (s.lost ?? 0), resurrected: s.resurrected ?? 0, lost: s.lost ?? 0, unknown: s.unknown ?? 0 };
+    history.replaceState(null, '', '#' + btoa(JSON.stringify(payload)));
+  } catch { /* non-critical */ }
+  els.permalink.hidden = false;
 }
 
 els.download.addEventListener('click', () => {
@@ -271,7 +277,45 @@ els.copy.addEventListener('click', async () => {
 
 els.again.addEventListener('click', () => {
   reset();
+  history.replaceState(null, '', location.pathname + location.search);
   els.tally.hidden = els.graveyard.hidden = els.ritual.hidden = true;
   window.scrollTo({ top: 0 });
   (mode === 'url' ? els.page : els.doc).focus();
 });
+
+/* ---------- Permalink: copy the current URL ---------- */
+els.permalink.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(location.href);
+    els.permalink.textContent = 'Copied ✓';
+  } catch {
+    els.permalink.textContent = 'Copy failed';
+  }
+  setTimeout(() => { els.permalink.textContent = 'Share this certificate'; }, 2000);
+});
+
+/* ---------- Restore a certificate from the URL hash on load ---------- */
+(function restoreFromHash() {
+  const hash = location.hash.slice(1);
+  if (!hash) return;
+  let s;
+  try {
+    s = JSON.parse(atob(hash));
+    if (typeof s !== 'object' || s === null || typeof s.total !== 'number') return;
+  } catch {
+    return; // not a valid Séance hash — ignore silently
+  }
+  // Populate defaults for fields that older hashes may not have included.
+  s.alive = s.alive ?? 0;
+  s.resurrected = s.resurrected ?? 0;
+  s.lost = s.lost ?? 0;
+  s.unknown = s.unknown ?? 0;
+  sourceName = s.source ?? 'document.md';
+
+  els.ritual.hidden = false;
+  els.tally.hidden = false;
+  setCounts({ alive: s.alive, resurrected: s.resurrected, lost: s.lost, unknown: s.unknown });
+  showCertificate(s, true);
+  // Show a note that this is a shared certificate, not a fresh scan.
+  els.status.textContent = `Restored shared death certificate for ${sourceName}.`;
+})();
