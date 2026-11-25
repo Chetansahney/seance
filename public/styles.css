@@ -181,7 +181,7 @@ textarea:focus, input:focus { outline: 2px solid var(--ember); outline-offset: 0
 .plot[data-state='resurrected'] .cause { color: var(--bone); }
 .plot[data-state='lost'] .stone { background: linear-gradient(180deg, #2c2930, #1f1d23); }
 .plot[data-state='lost'] .stone::before { /* crack */
-  content: ''; position: absolute; top: 18px; left: 58%; width: 2px; height: 46%;
+  content: ''; position: absolute; top: 34px; left: 74%; width: 2px; height: 46%;
   background: linear-gradient(#0b0a10, #0b0a1000); transform: rotate(14deg); clip-path: polygon(0 0, 100% 0, 60% 30%, 100% 55%, 30% 100%, 0 70%, 50% 40%);
   width: 10px;
 }
@@ -190,7 +190,7 @@ textarea:focus, input:focus { outline: 2px solid var(--ember); outline-offset: 0
 .plot[data-state='unknown'] .cause { color: var(--fog); }
 
 /* Living links: small, warm, not tombstones. */
-.plot[data-state='alive'] { padding-top: 0; }
+.plot[data-state='alive'] { padding-top: 0; align-self: start; }
 .plot[data-state='alive'] .stone { border-radius: var(--radius); padding: 14px 16px; text-align: left; background: #ffffff06; box-shadow: none; }
 .plot[data-state='alive'] .stone::after, .plot[data-state='alive'] .rip { display: none; }
 .plot[data-state='alive'] .host { font-size: 1.05rem; }

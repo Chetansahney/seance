@@ -15,7 +15,9 @@ and the knowledge behind that link is gone. Séance holds a séance for every li
 
 > Live demo: _add the deployed URL here_ · Demo video: _add the YouTube link here_
 
-<!-- TODO: add docs/screenshot.png of the graveyard -->
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Chetansahney/seance)
+
+![The Séance graveyard after scanning a rotted README: four links resurrected from the Wayback Machine, two beyond reach, four alive](docs/screenshot.png)
 
 ## Run it
 
@@ -27,6 +29,12 @@ npm start          # http://localhost:3666
 ```
 
 Click **Try a haunted README** to scan a sample with real dead links.
+
+### Deploy
+
+- **Render (free):** click the *Deploy to Render* button above. It reads [`render.yaml`](render.yaml); no settings are needed.
+- **Anywhere with Docker:** `docker build -t seance . && docker run -p 3666:3666 seance`
+- **Any Node host:** `npm ci --omit=dev && node src/server.js` (it listens on `$PORT`).
 
 ### Command line and CI
 
