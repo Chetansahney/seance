@@ -1,0 +1,19 @@
+{
+  "name": "seance",
+  "version": "0.1.0",
+  "description": "Talk to the dead web: find dead links and resurrect them from the Wayback Machine.",
+  "type": "module",
+  "bin": { "seance": "bin/seance.js" },
+  "main": "src/scan.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test \"test/**/*.test.js\""
+  },
+  "engines": { "node": ">=20" },
+  "keywords": ["link-rot", "wayback-machine", "dead-links", "kiroween"],
+  "license": "MIT",
+  "devDependencies": {
+    "fast-check": "^3.23.0"
+  }
+}

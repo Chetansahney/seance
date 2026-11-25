@@ -1,0 +1,21 @@
+# Implementation plan: Séance
+
+- [x] 1. Set up the project (package.json, ESM, node:test, fast-check)
+- [x] 2. Core: link extraction
+  - [x] 2.1 Markdown, autolink and bare-URL extraction with trailing-punctuation trimming (Req 1.1, 1.4)
+  - [x] 2.2 HTML href/src extraction (Req 1.2)
+  - [x] 2.3 Property tests: soundness and completeness (Properties 1, 2)
+- [x] 3. Core: classify HTTP outcomes (Req 2.2–2.5); property: totality (Property 7)
+- [x] 4. Core: choose a Wayback snapshot (Req 3.2–3.4); property: validity (Property 6)
+- [x] 5. Core: rewrite the document (Req 4); properties: preservation, idempotence, locality (Properties 3–5)
+- [x] 6. Net: probe with a HEAD to GET fallback and timeout; concurrency pool (Req 2.1, 2.6)
+- [x] 7. Net: Wayback CDX lookup (Req 3.1)
+- [x] 8. Scan orchestrator with event stream
+- [x] 9. Server: static files, SSE `/api/scan`, URL fetch mode
+- [x] 10. Haunted UI: graveyard, ghosts, reduced motion, keyboard support (Req 5)
+- [x] 11. CLI: report, `--fix`, `--json`, exit codes (Req 6)
+- [ ] 12. GitHub Action wrapper (`action.yml`) so repos can run Séance on every PR
+- [ ] 13. Shareable "death certificate" permalink (encode the summary in the URL hash)
+- [ ] 14. Respect `robots.txt` and add a per-host backoff on 429
+- [ ] 15. Deploy (Render or Fly) and add the live URL to the README
+- [ ] 16. Accessibility audit with axe; fix every issue it finds

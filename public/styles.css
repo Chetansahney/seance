@@ -1,0 +1,247 @@
+/* Séance: accessible horror.
+   Every color pair below meets WCAG AA against --night. */
+:root {
+  --night: #0b0a10;
+  --night-2: #14121c;
+  --stone: #2a2733;
+  --stone-edge: #3d3948;
+  --bone: #ece6f5;        /* body text, 15.9:1 */
+  --ash: #a8a0b8;         /* muted text, 7.6:1 */
+  --ectoplasm: #b9f5d8;   /* resurrected, 15:1 */
+  --ember: #ffb37a;       /* candle, 11:1 */
+  --blood: #ff9b9b;       /* lost, 9.5:1 */
+  --fog: #c9c4d6;         /* unknown, 11.5:1 */
+  --serif: 'IM Fell English', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --serif-sc: 'IM Fell English SC', 'IM Fell English', Georgia, serif;
+  --mono: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
+  --radius: 14px;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { background: var(--night); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--bone);
+  font: 18px/1.6 var(--serif);
+  background:
+    radial-gradient(1200px 600px at 80% -10%, #231d33 0%, transparent 60%),
+    radial-gradient(900px 500px at 0% 100%, #16131f 0%, transparent 70%),
+    var(--night);
+  overflow-x: hidden;
+}
+
+a { color: var(--ectoplasm); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+code { font-family: var(--mono); font-size: 0.85em; background: #ffffff10; padding: 0.1em 0.35em; border-radius: 4px; }
+:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; border-radius: 6px; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip { position: absolute; left: -9999px; top: 8px; background: var(--ember); color: var(--night); padding: 8px 14px; border-radius: 8px; z-index: 10; }
+.skip:focus { left: 8px; }
+
+/* ---------- Sky ---------- */
+.sky { position: absolute; top: 0; left: 0; right: 0; height: 100vh; pointer-events: none; z-index: 0; overflow: hidden; }
+.moon {
+  position: absolute; top: 6vh; right: 8vw; width: 120px; height: 120px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%, #fffbea 0%, #efe6c8 45%, #c9bf9f 100%);
+  box-shadow: 0 0 60px 20px #f4ecd022, 0 0 160px 60px #f4ecd00f;
+  opacity: 0.85;
+}
+.moon::after { /* craters */
+  content: ''; position: absolute; inset: 0; border-radius: 50%;
+  background:
+    radial-gradient(circle at 62% 60%, #0000001a 0 9px, transparent 10px),
+    radial-gradient(circle at 35% 68%, #00000014 0 6px, transparent 7px),
+    radial-gradient(circle at 55% 30%, #00000012 0 5px, transparent 6px);
+}
+.fog {
+  position: absolute; left: -50%; width: 200%; height: 40vh; bottom: -8vh;
+  background: radial-gradient(ellipse at 30% 60%, #b8b0d014 0%, transparent 55%),
+              radial-gradient(ellipse at 70% 50%, #b8b0d010 0%, transparent 50%);
+  filter: blur(18px);
+  animation: drift 60s linear infinite;
+}
+.fog-b { bottom: -14vh; opacity: 0.7; animation-duration: 90s; animation-direction: reverse; }
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(25%); } }
+
+/* ---------- Layout ---------- */
+.masthead, main, .footer { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.masthead { padding-top: 12vh; padding-bottom: 32px; }
+.eyebrow { font-family: var(--serif-sc); letter-spacing: 0.18em; text-transform: lowercase; color: var(--ash); margin: 0 0 4px; font-size: 0.95rem; }
+h1 {
+  font-family: var(--serif-sc); font-weight: 400; font-size: clamp(4rem, 12vw, 8.5rem); line-height: 0.95; margin: 0;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 30px #b9f5d833, 0 0 2px #ece6f5;
+}
+.tagline { max-width: 40ch; font-size: 1.3rem; color: var(--bone); margin: 18px 0 0; }
+h2 { font-family: var(--serif-sc); font-weight: 400; font-size: 2rem; margin: 0 0 12px; }
+
+/* ---------- Altar (input) ---------- */
+.altar {
+  background: linear-gradient(180deg, #1a1724ee, #121019ee);
+  border: 1px solid var(--stone-edge); border-radius: var(--radius);
+  padding: 20px; box-shadow: 0 30px 80px #00000080, inset 0 1px 0 #ffffff0d;
+}
+.tabs { display: flex; gap: 6px; margin-bottom: 14px; }
+.tabs [role='tab'] {
+  font: inherit; font-size: 1rem; color: var(--ash); background: transparent; border: 1px solid transparent;
+  padding: 6px 14px; border-radius: 999px; cursor: pointer;
+}
+.tabs [role='tab'][aria-selected='true'] { color: var(--bone); border-color: var(--stone-edge); background: #ffffff0a; }
+textarea, input[type='url'] {
+  width: 100%; font: 15px/1.55 var(--mono); color: var(--bone); background: #08070c;
+  border: 1px solid var(--stone-edge); border-radius: 10px; padding: 14px 16px; resize: vertical;
+}
+textarea::placeholder, input::placeholder { color: #8a8399; }
+textarea:focus, input:focus { outline: 2px solid var(--ember); outline-offset: 0; border-color: transparent; }
+.field-label { display: block; color: var(--ash); margin-bottom: 6px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; align-items: center; }
+.btn {
+  font: inherit; font-size: 1.05rem; cursor: pointer; border-radius: 999px; padding: 10px 20px;
+  border: 1px solid var(--stone-edge); transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: linear-gradient(180deg, #ffcf9a, #ffb37a); color: #1b1006; border-color: #ffcf9a; box-shadow: 0 0 24px #ffb37a40; }
+.btn-primary:hover { box-shadow: 0 0 36px #ffb37a70; }
+.btn-primary[disabled] { opacity: 0.65; cursor: progress; }
+.btn-ghost { background: transparent; color: var(--bone); }
+.btn-ghost:hover { background: #ffffff0d; }
+.btn-candle { width: 8px; height: 14px; border-radius: 50% 50% 40% 40%; background: #7a3b00; box-shadow: 0 -6px 0 -2px #fff3b0; position: relative; top: 2px; }
+.form-error { color: var(--blood); min-height: 1.6em; margin: 10px 0 0; }
+
+/* ---------- Ritual (progress) ---------- */
+.ritual { margin: 36px 0 8px; }
+.candle-track { height: 12px; border-radius: 999px; background: #ffffff0c; overflow: hidden; border: 1px solid var(--stone-edge); }
+.wax {
+  height: 100%; width: 100%; background: linear-gradient(90deg, #f3e7cf, #e8d9b8);
+  transform-origin: left; transition: transform 0.4s ease; position: relative;
+}
+.flame {
+  position: absolute; right: -6px; top: -9px; width: 12px; height: 28px; border-radius: 50% 50% 45% 45%;
+  background: radial-gradient(ellipse at 50% 70%, #fff6c8 0%, #ffb37a 45%, #ff6a2a00 70%);
+  animation: flicker 0.18s infinite alternate;
+}
+@keyframes flicker { from { transform: scaleY(1) translateX(0); } to { transform: scaleY(1.12) translateX(1px); } }
+.ritual-status { color: var(--ash); font-style: italic; margin: 10px 0 0; }
+
+/* ---------- Tally ---------- */
+.tally { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0; }
+.count {
+  font: inherit; color: var(--bone); background: #ffffff07; border: 1px solid var(--stone-edge); border-radius: var(--radius);
+  padding: 14px; text-align: left; cursor: pointer; display: flex; flex-direction: column;
+}
+.count .n { font-family: var(--serif-sc); font-size: 2.4rem; line-height: 1; }
+.count .l { color: var(--ash); }
+.count[aria-pressed='true'] { background: #ffffff12; border-color: currentColor; }
+.count-risen .n { color: var(--ectoplasm); }
+.count-lost .n { color: var(--blood); }
+.count-fog .n { color: var(--fog); }
+.count-alive .n { color: var(--ember); }
+
+/* ---------- Graveyard ---------- */
+.plots { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 22px 18px; }
+.plot { position: relative; padding-top: 46px; animation: rise-from-earth 0.6s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes rise-from-earth { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+.stone {
+  position: relative; height: 100%;
+  background: linear-gradient(180deg, #34303f, #26232f 60%, #1f1c27);
+  border: 1px solid var(--stone-edge);
+  border-radius: 120px 120px 10px 10px / 70px 70px 10px 10px;
+  padding: 46px 20px 18px; text-align: center;
+  box-shadow: inset 0 2px 0 #ffffff12, inset 0 -20px 40px #00000040, 0 18px 0 -10px #0d0c12, 0 20px 30px #00000070;
+}
+.stone::after { /* earth mound */
+  content: ''; position: absolute; left: -10px; right: -10px; bottom: -12px; height: 18px;
+  background: radial-gradient(ellipse at 50% 0%, #2a2219 0%, #17120d 70%, transparent 72%);
+  z-index: -1;
+}
+.rip { font-family: var(--serif-sc); letter-spacing: 0.3em; color: var(--ash); margin: 0 0 4px; font-size: 0.9rem; }
+.host { font-family: var(--serif-sc); font-weight: 400; font-size: 1.3rem; margin: 0; word-break: break-word; }
+.url { font: 12.5px/1.45 var(--mono); color: var(--ash); word-break: break-all; margin: 6px 0 10px; }
+.cause { margin: 0; font-style: italic; }
+.epitaph { margin: 6px 0 0; color: var(--ash); font-size: 0.95rem; }
+.epitaph:empty, .cause:empty { display: none; }
+.visit { display: inline-block; margin-top: 12px; font-size: 1rem; }
+.visit:not([href]) { display: none; }
+
+.ghost {
+  position: absolute; left: 50%; top: -6px; transform: translateX(-50%); color: var(--ectoplasm);
+  filter: drop-shadow(0 0 14px #b9f5d899); opacity: 0; pointer-events: none;
+}
+.plot[data-state='resurrected'] .ghost { animation: ghost-rise 1.4s 0.2s ease-out forwards, hover 3.2s 1.6s ease-in-out infinite; }
+@keyframes ghost-rise { from { opacity: 0; transform: translate(-50%, 50px) scale(0.7); } to { opacity: 0.95; transform: translate(-50%, 0) scale(1); } }
+@keyframes hover { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -6px); } }
+
+.plot[data-state='resurrected'] .stone { border-color: #b9f5d855; box-shadow: inset 0 2px 0 #ffffff12, 0 0 40px #b9f5d818, 0 20px 30px #00000070; }
+.plot[data-state='resurrected'] .url { text-decoration: line-through; text-decoration-color: #ff9b9b99; }
+.plot[data-state='resurrected'] .cause { color: var(--bone); }
+.plot[data-state='lost'] .stone { background: linear-gradient(180deg, #2c2930, #1f1d23); }
+.plot[data-state='lost'] .stone::before { /* crack */
+  content: ''; position: absolute; top: 18px; left: 58%; width: 2px; height: 46%;
+  background: linear-gradient(#0b0a10, #0b0a1000); transform: rotate(14deg); clip-path: polygon(0 0, 100% 0, 60% 30%, 100% 55%, 30% 100%, 0 70%, 50% 40%);
+  width: 10px;
+}
+.plot[data-state='lost'] .cause { color: var(--blood); }
+.plot[data-state='unknown'] .stone { background: linear-gradient(180deg, #2b2a33cc, #1d1c24cc); border-style: dashed; }
+.plot[data-state='unknown'] .cause { color: var(--fog); }
+
+/* Living links: small, warm, not tombstones. */
+.plot[data-state='alive'] { padding-top: 0; }
+.plot[data-state='alive'] .stone { border-radius: var(--radius); padding: 14px 16px; text-align: left; background: #ffffff06; box-shadow: none; }
+.plot[data-state='alive'] .stone::after, .plot[data-state='alive'] .rip { display: none; }
+.plot[data-state='alive'] .host { font-size: 1.05rem; }
+.plot[data-state='alive'] .host::before { content: ''; display: inline-block; width: 7px; height: 12px; margin-right: 8px; border-radius: 50% 50% 40% 40%; background: var(--ember); box-shadow: 0 0 10px var(--ember); vertical-align: -1px; animation: flicker 0.25s infinite alternate; }
+.plot[data-state='alive'] .cause { color: var(--ash); font-size: 0.9rem; }
+
+.plot[data-state='pending'] .stone { opacity: 0.55; }
+.plot[data-state='pending'] .cause::after { content: '…'; }
+
+.plots[data-filter] .plot { display: none; }
+.plots[data-filter='resurrected'] .plot[data-state='resurrected'],
+.plots[data-filter='lost'] .plot[data-state='lost'],
+.plots[data-filter='unknown'] .plot[data-state='unknown'],
+.plots[data-filter='alive'] .plot[data-state='alive'] { display: block; }
+
+/* ---------- Certificate ---------- */
+.certificate { margin: 56px 0 24px; }
+.cert-inner {
+  position: relative; padding: 36px 32px; border-radius: 6px; color: #2a1f12;
+  background:
+    radial-gradient(ellipse at 20% 10%, #fff9e8 0%, transparent 60%),
+    radial-gradient(ellipse at 90% 90%, #d8c49a 0%, transparent 60%),
+    #efe2c4;
+  box-shadow: 0 30px 80px #000000a0, inset 0 0 60px #8a6a3a55;
+  border: 1px solid #c8b07e;
+}
+.cert-inner .eyebrow { color: #6b5530; }
+.cert-inner h2 { color: #2a1f12; font-size: 2.4rem; }
+.cert-inner p { max-width: 62ch; }
+.cert-inner .btn-ghost { color: #2a1f12; border-color: #8a6a3a; }
+.cert-inner .btn-ghost:hover { background: #8a6a3a22; }
+.cert-inner .btn-primary { background: #2a1f12; color: #f6ead0; border-color: #2a1f12; box-shadow: none; }
+.cert-inner .hint { color: #5a4526; font-style: italic; font-size: 0.95rem; }
+.cert-inner :focus-visible { outline-color: #2a1f12; }
+
+/* ---------- How it works ---------- */
+.how { margin: 72px 0 32px; padding-top: 32px; border-top: 1px solid var(--stone-edge); }
+.how ol { padding-left: 1.2em; max-width: 70ch; }
+.how li { margin-bottom: 10px; }
+.how li::marker { color: var(--ember); font-family: var(--serif-sc); }
+.footer { color: var(--ash); font-size: 0.95rem; padding-top: 24px; padding-bottom: 48px; }
+
+@media (max-width: 700px) {
+  body { font-size: 17px; }
+  .moon { width: 70px; height: 70px; top: 3vh; }
+  .tally { grid-template-columns: repeat(2, 1fr); }
+  .masthead { padding-top: 8vh; }
+}
+
+/* Accessible horror: no motion for those who ask. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .plot[data-state='resurrected'] .ghost { opacity: 0.95; }
+}

@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "name": "Keep tasks in sync",
+  "description": "When a file is created, tick off the matching task in the spec or add a new one.",
+  "version": "1",
+  "when": { "type": "fileCreated", "patterns": ["src/**/*.js", "bin/**/*.js", "public/**/*"] },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A new file was created. Update .kiro/specs/seance/tasks.md: tick the task it completes, or add a task if the file is new scope. Keep the requirement references (Req X.Y) accurate."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "name": "Accessible horror check",
+  "description": "When the UI changes, check that the spooky effects still respect reduced motion, contrast and keyboard use.",
+  "version": "1",
+  "when": { "type": "fileEdited", "patterns": ["public/**/*.css", "public/**/*.html", "public/**/*.js"] },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Review the edited UI file against Requirement 5 in .kiro/specs/seance/requirements.md: every new animation must be disabled under prefers-reduced-motion, text colors must meet WCAG AA against #0b0a10, and every interactive element must be reachable and usable with a keyboard. Fix any problem you find."
+  }
+}

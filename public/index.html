@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Séance: talk to the dead web</title>
+  <meta name="description" content="Find the dead links in any document or web page and bring them back from the Internet Archive's Wayback Machine.">
+  <meta name="theme-color" content="#0b0a10">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#altar">Skip to the séance</a>
+  <div class="sky" aria-hidden="true">
+    <div class="moon"></div>
+    <div class="fog fog-a"></div>
+    <div class="fog fog-b"></div>
+  </div>
+
+  <header class="masthead">
+    <p class="eyebrow">An instrument for the dead web</p>
+    <h1>Séance</h1>
+    <p class="tagline">Every link you've ever written is slowly dying. Séance finds the ones that have passed on and brings them back from the <a href="https://web.archive.org/" rel="noopener">Internet Archive</a>.</p>
+  </header>
+
+  <main id="altar">
+    <section class="altar" aria-labelledby="offer-title">
+      <h2 id="offer-title" class="sr-only">Make an offering</h2>
+      <div class="tabs" role="tablist" aria-label="What to examine">
+        <button role="tab" id="tab-text" aria-selected="true" aria-controls="panel-text">Paste a document</button>
+        <button role="tab" id="tab-url" aria-selected="false" aria-controls="panel-url" tabindex="-1">Summon a web page</button>
+      </div>
+
+      <form id="offering" novalidate>
+        <div role="tabpanel" id="panel-text" aria-labelledby="tab-text">
+          <label for="doc" class="sr-only">Document text (Markdown, HTML or plain text)</label>
+          <textarea id="doc" rows="10" spellcheck="false" placeholder="Paste a README, a blog post, a bibliography… Markdown, HTML or plain text."></textarea>
+        </div>
+        <div role="tabpanel" id="panel-url" aria-labelledby="tab-url" hidden>
+          <label for="page" class="field-label">Address of the page to examine</label>
+          <input id="page" type="url" inputmode="url" placeholder="https://example.com/my-old-blog-post" autocomplete="url">
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn btn-primary" id="begin">
+            <span class="btn-candle" aria-hidden="true"></span>Begin the séance
+          </button>
+          <button type="button" class="btn btn-ghost" id="sample">Try a haunted README</button>
+        </div>
+        <p class="form-error" id="form-error" role="alert"></p>
+      </form>
+    </section>
+
+    <section class="ritual" id="ritual" hidden aria-labelledby="ritual-title">
+      <h2 id="ritual-title" class="sr-only">Séance progress</h2>
+      <div class="candle-track" aria-hidden="true">
+        <div class="wax" id="wax"><span class="flame"></span></div>
+      </div>
+      <p class="ritual-status" id="status" aria-live="polite"></p>
+    </section>
+
+    <section class="tally" id="tally" hidden aria-label="Summary and filters">
+      <button class="count count-risen" data-filter="resurrected" aria-pressed="false"><span class="n" id="n-resurrected">0</span><span class="l">risen</span></button>
+      <button class="count count-lost" data-filter="lost" aria-pressed="false"><span class="n" id="n-lost">0</span><span class="l">beyond reach</span></button>
+      <button class="count count-fog" data-filter="unknown" aria-pressed="false"><span class="n" id="n-unknown">0</span><span class="l">in the fog</span></button>
+      <button class="count count-alive" data-filter="alive" aria-pressed="false"><span class="n" id="n-alive">0</span><span class="l">still breathing</span></button>
+    </section>
+
+    <section class="graveyard" id="graveyard" aria-label="Links" hidden>
+      <ul class="plots" id="plots"></ul>
+    </section>
+
+    <section class="certificate" id="certificate" hidden aria-labelledby="cert-title">
+      <div class="cert-inner">
+        <p class="eyebrow">Issued by Séance</p>
+        <h2 id="cert-title">Certificate of Resurrection</h2>
+        <p id="cert-text"></p>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="download">Download the exorcised document</button>
+          <button type="button" class="btn btn-ghost" id="copy">Copy it</button>
+          <button type="button" class="btn btn-ghost" id="again">Hold another séance</button>
+        </div>
+        <p class="hint">Every dead link that has an archived copy now points to the Wayback Machine. Nothing else in your document was changed.</p>
+      </div>
+    </section>
+
+    <section class="how" aria-labelledby="how-title">
+      <h2 id="how-title">How the ritual works</h2>
+      <ol>
+        <li><strong>Summon.</strong> Every <code>http(s)</code> link in your text is found: Markdown, HTML or bare.</li>
+        <li><strong>Check the pulse.</strong> Each link is knocked on politely (HEAD, then GET), at most two at a time per site.</li>
+        <li><strong>Bury the dead.</strong> 404s, 410s, vanished domains, timeouts and failing servers go in the ground. Locked doors (403, 429) stay in the fog: we never call a link dead without proof.</li>
+        <li><strong>Resurrect.</strong> For each dead link, Séance asks the Wayback Machine for its last <em>healthy</em> snapshot, never an archived copy of the 404 page.</li>
+        <li><strong>Exorcise.</strong> Download your document with dead links rewritten. Or run <code>npx seance README.md --fix</code> in CI.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Built for Kiroween 2026 · Archived copies courtesy of the <a href="https://archive.org/donate" rel="noopener">Internet Archive</a>, which deserves your support · Open source under the MIT license</p>
+  </footer>
+
+  <template id="plot-template">
+    <li class="plot">
+      <article class="stone">
+        <div class="ghost" aria-hidden="true">
+          <svg viewBox="0 0 64 72" width="56" height="64"><path d="M32 2C16 2 6 14 6 30v38l8-6 6 6 6-6 6 6 6-6 6 6 6-6 8 6V30C58 14 48 2 32 2z" fill="currentColor"/><circle cx="23" cy="30" r="4" fill="#0b0a10"/><circle cx="41" cy="30" r="4" fill="#0b0a10"/><ellipse cx="32" cy="44" rx="5" ry="6" fill="#0b0a10"/></svg>
+        </div>
+        <p class="rip" aria-hidden="true"></p>
+        <h3 class="host"></h3>
+        <p class="url"></p>
+        <p class="cause"></p>
+        <p class="epitaph"></p>
+        <a class="visit" rel="noopener" target="_blank"></a>
+      </article>
+    </li>
+  </template>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "name": "Property test guard",
+  "description": "When a new exported function appears in src/core, make sure it has a fast-check property test.",
+  "version": "1",
+  "when": { "type": "fileEdited", "patterns": ["src/core/**/*.js"] },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Check every exported function in the edited src/core file. For each one with no fast-check property in test/*.prop.test.js, write one that encodes the matching correctness property from .kiro/specs/seance/design.md. If no property there fits, propose one and add it to design.md."
+  }
+}
