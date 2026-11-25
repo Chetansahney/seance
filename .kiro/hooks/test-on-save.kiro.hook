@@ -6,6 +6,6 @@
   "when": { "type": "fileEdited", "patterns": ["src/**/*.js"] },
   "then": {
     "type": "askAgent",
-    "prompt": "A source file in src/ was just edited. Run `npm test`. If any test fails, explain the cause in one sentence and fix the code (not the test) unless the test contradicts .kiro/specs/seance/requirements.md."
+    "prompt": "A source file in src/ was just edited. Run `npm test` as a single command from the workspace root (the terminal is Windows PowerShell 5.1: no `cd ... &&` prefix). If any test fails, explain the cause in one sentence and fix the code (not the test) unless the test contradicts .kiro/specs/seance/requirements.md."
   }
 }

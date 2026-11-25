@@ -29,6 +29,18 @@
         "chatSessionId": "sess_ec876a21-7be8-438a-9e89-2bca624fb24e",
         "timestamp": 1795603246155
       }
+    ],
+    "14. Respect `robots.txt` and add a per-host backoff on 429": [
+      {
+        "executionId": "78f23150-b96c-47ab-8d8e-85e48415d86f",
+        "chatSessionId": "sess_7cce27c2-41d5-436c-9cca-71ecda13bdd4",
+        "timestamp": 1795603834448
+      },
+      {
+        "executionId": "78f23150-b96c-47ab-8d8e-85e48415d86f",
+        "chatSessionId": "sess_7cce27c2-41d5-436c-9cca-71ecda13bdd4",
+        "timestamp": 1795604114106
+      }
     ]
   }
 }

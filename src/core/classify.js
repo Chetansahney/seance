@@ -14,6 +14,7 @@ const DEAD_ERRORS = {
 
 const UNKNOWN_ERRORS = {
   BLOCKED: 'Private or local address, not checked',
+  ROBOTS_DISALLOWED: 'Blocked by robots.txt',
   CERT: 'TLS certificate problem',
   EAI_AGAIN: 'Temporary DNS failure',
 };
@@ -31,11 +32,10 @@ export function classify(outcome) {
   }
   if (!Number.isInteger(status)) return { state: 'unknown', reason: 'No response' };
   if (status >= 200 && status < 400) return { state: 'alive', reason: `Answered ${status}` };
+  if (status === 400) return { state: 'dead', reason: '400: malformed request (bad URL)' };
   if (status === 404) return { state: 'dead', reason: '404: the page is gone' };
   if (status === 410) return { state: 'dead', reason: '410: deliberately removed' };
-  if (status === 401 || status === 403) return { state: 'unknown', reason: `${status}: the door is locked (may be bot protection)` };
-  if (status === 429) return { state: 'unknown', reason: '429: too many visitors, try later' };
-  if (status >= 400 && status < 500) return { state: 'dead', reason: `${status}: the server rejects this address` };
+  if (status >= 400 && status < 500) return { state: 'unknown', reason: `${status}: server declined (may be bot protection)` };
   if (status >= 500 && status < 600) return { state: 'dead', reason: `${status}: the server is failing` };
   return { state: 'unknown', reason: `Unusual answer (${status})` };
 }

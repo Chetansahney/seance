@@ -21,10 +21,11 @@ Machine. It can rewrite the document so dead links point to their archived copie
 ### Acceptance criteria
 1. WHEN checking a link THEN the system SHALL send HEAD and, IF HEAD fails or returns a status of 400 or higher, SHALL retry with GET (many servers mishandle HEAD).
 2. WHEN a response is 2xx or 3xx (after following redirects) THEN the system SHALL classify the link as `alive`.
-3. WHEN a response is 404 or 410, or DNS lookup fails, THEN the system SHALL classify the link as `dead`.
+3. WHEN a response is 400, 404, or 410, or DNS lookup fails THEN the system SHALL classify the link as `dead`.
 4. WHEN a response is 5xx or the request times out after 8 seconds THEN the system SHALL classify the link as `dead` with the reason recorded.
-5. WHEN a response is 401, 403 or 429 THEN the system SHALL classify the link as `unknown` (probably blocked, not dead).
+5. WHEN a response is any other 4xx (including 401, 403, 429, or any non-standard 4xx) THEN the system SHALL classify the link as `unknown` (the server declined, but the page may still exist).
 6. The system SHALL check at most 8 links at once overall and at most 2 at once per host.
+7. WHEN a host's `robots.txt` disallows the Séance user-agent for a URL's path THEN the system SHALL classify that link as `unknown` and SHALL NOT fetch it.
 
 ## Requirement 3: Resurrect
 **User story:** As a user, I want an archived copy of each dead link, so that readers still reach the content.
@@ -61,3 +62,4 @@ Machine. It can rewrite the document so dead links point to their archived copie
 1. `seance <file>` SHALL print a report and exit with code 1 IF any dead link is found, and 0 otherwise.
 2. `seance <file> --fix` SHALL rewrite the file in place with resurrected links.
 3. `seance <file> --json` SHALL print the machine-readable report.
+

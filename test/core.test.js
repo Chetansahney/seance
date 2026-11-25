@@ -44,7 +44,7 @@ test('groups duplicates (Req 1.3)', () => {
   assert.deepEqual(u, [{ url: 'https://a.example', occurrences: 2 }, { url: 'https://b.example', occurrences: 1 }]);
 });
 
-test('classifies HTTP outcomes (Req 2.2–2.5)', () => {
+test('classifies HTTP outcomes (Req 2.2-2.7)', () => {
   assert.equal(classify({ status: 200 }).state, 'alive');
   assert.equal(classify({ status: 301 }).state, 'alive');
   assert.equal(classify({ status: 404 }).state, 'dead');
@@ -59,6 +59,8 @@ test('classifies HTTP outcomes (Req 2.2–2.5)', () => {
   assert.equal(classify({ error: 'BLOCKED' }).state, 'unknown');
   assert.equal(classify({ error: 'WEIRD' }).state, 'unknown');
   assert.equal(classify({}).state, 'unknown');
+  assert.equal(classify({ status: 400 }).state, 'dead');
+  assert.equal(classify({ status: 419 }).state, 'unknown');
 });
 
 test('chooses the newest healthy snapshot, never an archived 404 (Req 3.2)', () => {
@@ -87,3 +89,4 @@ test('rewrites only whole links and is idempotent (Req 4)', () => {
   assert.equal(rewrite(once, map), once);
   assert.equal(rewrite(doc, new Map()), doc);
 });
+

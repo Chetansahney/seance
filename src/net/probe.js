@@ -1,5 +1,6 @@
 // Check whether a link is alive (Requirement 2.1).
 import { checkHost } from './guard.js';
+import { isAllowed } from './robots.js';
 
 export const USER_AGENT = 'Mozilla/5.0 (compatible; Seance/0.1; dead-link checker; +https://github.com/Chetansahney/seance)';
 
@@ -24,28 +25,43 @@ async function attempt(fetchImpl, url, method, timeoutMs) {
 
 /**
  * HEAD first; fall back to GET when HEAD errors or answers >= 400, because
- * many servers mishandle HEAD.
+ * many servers mishandle HEAD. Checks robots.txt and retries once after a 429.
  * @param {string} url
- * @param {{ fetchImpl?: typeof fetch, timeoutMs?: number, guard?: boolean }} [opts]
+ * @param {{ fetchImpl?: typeof fetch, timeoutMs?: number, guard?: boolean, backoffMs?: number }} [opts]
  * @returns {Promise<{ status?: number, error?: string, finalUrl?: string }>}
  */
-export async function probe(url, { fetchImpl = fetch, timeoutMs = 8000, guard = true } = {}) {
+export async function probe(url, { fetchImpl = fetch, timeoutMs = 8000, guard = true, backoffMs = 2000 } = {}) {
   if (guard) {
     const host = await checkHost(url);
     if (host === 'blocked') return { error: 'BLOCKED' };
     if (host === 'nxdomain') return { error: 'ENOTFOUND' };
     if (host === 'servfail') return { error: 'ESERVFAIL' };
   }
-  let head;
-  try {
-    head = await attempt(fetchImpl, url, 'HEAD', timeoutMs);
-    if (head.status < 400) return head;
-  } catch { /* fall through to GET */ }
-  try {
-    return await attempt(fetchImpl, url, 'GET', timeoutMs);
-  } catch (err) {
-    return head ?? { error: errorCode(err) };
+
+  if (!(await isAllowed(url, { fetchImpl, timeoutMs }))) {
+    return { error: 'ROBOTS_DISALLOWED' };
   }
+
+  const tryOnce = async () => {
+    let head;
+    try {
+      head = await attempt(fetchImpl, url, 'HEAD', timeoutMs);
+      if (head.status < 400) return head;
+      if (head.status === 429) return head;
+    } catch { /* fall through to GET */ }
+    try {
+      return await attempt(fetchImpl, url, 'GET', timeoutMs);
+    } catch (err) {
+      return head ?? { error: errorCode(err) };
+    }
+  };
+
+  const result = await tryOnce();
+  if (result.status === 429 && backoffMs > 0) {
+    await new Promise((r) => setTimeout(r, backoffMs));
+    return tryOnce();
+  }
+  return result;
 }
 
 /**

@@ -16,6 +16,6 @@
 - [x] 11. CLI: report, `--fix`, `--json`, exit codes (Req 6)
 - [x] 12. GitHub Action wrapper (`action.yml`) so repos can run Séance on every PR
 - [x] 13. Shareable "death certificate" permalink (encode the summary in the URL hash)
-- [ ] 14. Respect `robots.txt` and add a per-host backoff on 429
+- [x] 14. Respect `robots.txt` and add a per-host backoff on 429
 - [ ] 15. Deploy (Render or Fly) and add the live URL to the README
 - [ ] 16. Accessibility audit with axe; fix every issue it finds
